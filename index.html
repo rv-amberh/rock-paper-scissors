@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Rock Paper Scissors</title>
+</head>
+
+<body>
+
+<p>Rock | Paper | Scissors</p>
+
+<button onclick="play()">Play</button>
+
+<p id="selection"></p>
+<p id="result"></p>
+
+<script type="text/javascript">
+const ROCK = "rock";
+const PAPER = "paper";
+const SCISSORS = "scissors";
+
+function computerPlay(){
+  const computerOptions = [ROCK, PAPER, SCISSORS];
+  const randIndex = Math.floor(Math.random() * computerOptions.length);
+  return computerOptions[randIndex];
+}
+
+function playRound(playerSelection, computerSelection) {
+  playerSelection = playerSelection.toLowerCase();
+
+  let finalMessage  = "Invalid game play";
+
+  if (computerSelection == playerSelection) {
+    finalMessage = "Same hands! No one wins, it's a tie!";
+  }
+  
+  if (computerSelection == ROCK) {
+    switch (playerSelection) {
+      case SCISSORS:
+        finalMessage = "You lose! Rock beats Scissors";
+        break;
+      case PAPER:
+        finalMessage = "You win! Paper beats Rock";
+        break;
+    }
+  } else if (computerSelection == PAPER) {
+    switch (playerSelection) {
+      case ROCK:
+        finalMessage = "You lose! Paper beats Rock";
+        break;
+      case SCISSORS:
+        finalMessage = "You win! Scissors beats Paper";
+        break;
+    }
+  } else if (computerSelection == SCISSORS) {
+    switch (playerSelection) {
+      case PAPER:
+        finalMessage = "You lose! Scissors beats Paper";
+        break;
+      case ROCK:
+        finalMessage = "You win! Rock beats Scissors";
+        break;
+    }
+  }
+  return finalMessage;
+}
+
+function play() {
+  const playerSelection = prompt("Please enter a hand", "");
+  const computerSelection = computerPlay();
+  const selection = `You played "${playerSelection}", computer played "${computerSelection}"`;
+  const result = playRound(playerSelection, computerSelection);
+  
+  if (playerSelection != null) {
+    document.getElementById("selection").innerHTML = selection;
+    document.getElementById("result").innerHTML = result;
+  }
+}
+</script>
+
+</body>
+</html>
